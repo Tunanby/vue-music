@@ -9,11 +9,10 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/recommend',
       name: 'Recommend',
       component: Recommend
-    }
-    ,
+    } ,
     {
       path: '/singer',
       name: 'Singer',
