@@ -5,6 +5,11 @@ import App from './App'
 import router from './router'
 import 'common/stylus/index.styl'
 
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css' // require styles
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

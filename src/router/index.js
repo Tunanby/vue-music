@@ -11,8 +11,9 @@ export default new Router({
     {
       path: '/recommend',
       name: 'Recommend',
-      component: Recommend
-    } ,
+      component: Recommend,
+      alias: '/'
+    },
     {
       path: '/singer',
       name: 'Singer',

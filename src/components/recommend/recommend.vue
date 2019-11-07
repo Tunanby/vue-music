@@ -2,7 +2,6 @@
     <div class="recommend">
         <div class="recommend-conner">
             <div class="slider-wrapper">
-                111
                 <slider></slider>
             </div>
         </div>
@@ -11,7 +10,7 @@
 
 <script>
 import Slider from "base/slider/slider"
-export default ({
+export default ({ 
     name: 'recommend',
     components:{
         Slider
