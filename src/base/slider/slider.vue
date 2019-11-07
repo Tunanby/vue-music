@@ -36,9 +36,8 @@ export default ({
   methods: {
     _getBanner() {
       getBanner().then((res)=>{
-        console.log(res.status)
         if (res.status == ERR_OK) {
-          this.bannerList = res.data.banners.slice(5)
+          this.bannerList = res.data.banners.slice(1)
         }
       })
     }

@@ -1,6 +1,6 @@
 <template>
     <div class="music-header"> 
-        <h4 class="text">音乐</h4>
+        <h4 class="text">网易云音乐</h4>
         <div class="search">
             <i class="iconfont icon-search"></i>
         </div>
