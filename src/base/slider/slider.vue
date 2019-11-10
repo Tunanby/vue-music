@@ -1,6 +1,6 @@
 <template>
   <div class="slider">
-    <swiper :options="swiperOption" ref="mySwiper" v-if="bannerList.length">
+    <swiper :options="swiperOption" ref="mySwiper"  v-if="bannerList.length">
       <!-- slides -->
       <swiper-slide v-for="(item,key) of bannerList" :key="key">
         <img :src="item.imageUrl" alt="banner" class="slider-img">
