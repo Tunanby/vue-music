@@ -1,27 +1,29 @@
 <template>
     <div class="recommend">
-        <div class="recommend-conner">
-            <div class="slider-wrapper">
-                <slider></slider>
+        <scroll class="recommend-conner">
+            <div>
+                <div class="slider-wrapper">
+                    <slider></slider>
+                </div>
+                <div class="recommend-list">
+                    <h4 class="list-title">推荐歌单</h4>
+                    <ul>
+                        <li class="item" v-for="(item,key) of recommendList" :key="key">
+                            <div class="icon">
+                                <img :src="item.picUrl" alt="歌曲封面">
+                            </div>
+                            <p class="count">
+                                <i class="iconfont icon-search"></i> 
+                                {{ Math.floor(item.playCount/10000) }} 万
+                            </p>
+                            <div class="text">
+                                <p class="name">{{ item.name }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="recommend-list">
-                <h4 class="list-title">推荐歌单</h4>
-                <ul>
-                    <li class="item" v-for="(item,key) of recommendList" :key="key">
-                        <div class="icon">
-                            <img :src="item.picUrl" alt="歌曲封面">
-                        </div>
-                        <p class="count">
-                            <i class="iconfont icon-search"></i> 
-                            {{ Math.floor(item.playCount/10000) }} 万
-                        </p>
-                        <div class="text">
-                            <p class="name">{{ item.name }}</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        </scroll>
     </div>
 </template>
 
@@ -29,8 +31,12 @@
 import Slider from "base/slider/slider"
 import { getRecommendList } from "api/recommend"
 import { ERR_OK } from "common/js/config"
+import Scroll from "base/scroll/scroll"
 export default ({ 
     name: 'recommend',
+    components:{
+        Slider,Scroll
+    },
     data(){
         return {
             recommendList: []
@@ -44,13 +50,9 @@ export default ({
             getRecommendList().then((res) => {
                 if (res.status === ERR_OK) {
                     this.recommendList = res.data.result
-                    console.log(this.recommendList)
                 }
             })
         }
-    },
-    components:{
-        Slider
     }
 })
 </script>
