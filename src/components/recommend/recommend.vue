@@ -10,7 +10,7 @@
                     <ul>
                         <li class="item" v-for="(item,key) in recommendList" :key="key">
                             <div class="icon">
-                                <img :src="item.picUrl" alt="歌曲封面">
+                                <img v-lazy="item.picUrl" alt="歌曲封面">
                             </div>
                             <p class="count">
                                 <i class="iconfont icon-search"></i> 
@@ -27,13 +27,16 @@
                     <ul>
                         <li class="item" v-for="(item,key) in recommendMusic" :key="key">
                             <div class="icon">
-                                <img :src="item.song.album.picUrl" alt="歌曲图片">
+                                <img v-lazy="item.song.album.picUrl" alt="歌曲图片">
                             </div>
                             <p class="text"> {{ item.name }} </p>
                             <p class="singer"> {{ item.song.artists[0].name }} </p>
                         </li>
                     </ul>
                 </div>
+            </div>
+            <div class="loading-content" v-if="!recommendList.length">
+                <loading></loading>
             </div>
         </scroll>
     </div>
@@ -44,10 +47,11 @@ import Slider from "base/slider/slider"
 import { getRecommendList, getRecommendMusic } from "api/recommend"
 import { ERR_OK } from "common/js/config"
 import Scroll from "base/scroll/scroll"
+import Loading from "base/loading/loading"
 export default ({ 
     name: 'recommend',
     components:{
-        Slider,Scroll
+        Slider, Scroll, Loading
     },
     data(){
         return {
@@ -174,4 +178,16 @@ export default ({
                         line-height 16px
                         margin-bottom 8px
 
+
+
+
+
+
+
+
+            .loading-content
+                position absolute
+                width 100%
+                top 50%
+                transform translateY(-50%)
 </style>

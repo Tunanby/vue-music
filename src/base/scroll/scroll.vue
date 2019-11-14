@@ -24,7 +24,7 @@ export default {
     },
     mounted() {
         setTimeout(() => {
-            console.log(2)
+            // console.log(2)
             this._initScroll()
         },20)
     },
@@ -33,7 +33,7 @@ export default {
             if (!this.$refs.wrapper) {
                 return false
             }
-            console.log(1)
+            // console.log(1)
             this.scroll = new BScroll(this.$refs.wrapper, {
                 click: this.click,
                 probeType: this.probeType
@@ -46,8 +46,7 @@ export default {
             this.scroll && this.scroll.disable()
         },
         refresh() {
-            console.log(3)
-            this.scroll.refresh()
+            // console.log(3)
             this.scroll && this.scroll.refresh()
         }
     },
