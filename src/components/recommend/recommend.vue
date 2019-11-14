@@ -8,7 +8,7 @@
                 <div class="recommend-list">
                     <h4 class="list-title">推荐歌单</h4>
                     <ul>
-                        <li class="item" v-for="(item,key) of recommendList" :key="key">
+                        <li class="item" v-for="(item,key) in recommendList" :key="key">
                             <div class="icon">
                                 <img :src="item.picUrl" alt="歌曲封面">
                             </div>
@@ -22,6 +22,18 @@
                         </li>
                     </ul>
                 </div>
+                <div class="recommend-music">
+                    <h4 class="musci-title">推荐歌曲</h4>
+                    <ul>
+                        <li class="item" v-for="(item,key) in recommendMusic" :key="key">
+                            <div class="icon">
+                                <img :src="item.song.album.picUrl" alt="歌曲图片">
+                            </div>
+                            <p class="text"> {{ item.name }} </p>
+                            <p class="singer"> {{ item.song.artists[0].name }} </p>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </scroll>
     </div>
@@ -29,7 +41,7 @@
 
 <script>
 import Slider from "base/slider/slider"
-import { getRecommendList } from "api/recommend"
+import { getRecommendList, getRecommendMusic } from "api/recommend"
 import { ERR_OK } from "common/js/config"
 import Scroll from "base/scroll/scroll"
 export default ({ 
@@ -39,17 +51,26 @@ export default ({
     },
     data(){
         return {
-            recommendList: []
+            recommendList: [],
+            recommendMusic: []
         }
     },
     created() {
         this._getRecommendList()
+        this._getRecommendMusic()
     },
     methods: {
         _getRecommendList() {
             getRecommendList().then((res) => {
                 if (res.status === ERR_OK) {
                     this.recommendList = res.data.result
+                }
+            })
+        },
+        _getRecommendMusic() {
+            getRecommendMusic().then((res) => {
+                if (res.status === ERR_OK) {
+                    this.recommendMusic = res.data.result.splice(1)
                 }
             })
         }
@@ -112,4 +133,45 @@ export default ({
                         .name
                             font-size $font-size-small-x
                             overflow hidden
+            .recommend-music
+                position relative
+                width 100%
+                box-sizing border-box
+                .musci-title
+                    font-weight bold
+                    font-size $font-size-large-s
+                    height 44px
+                    line-height 44px
+                    padding 0 1.5%
+                    color $color-text
+                    text-align left
+                .item
+                    display inline-block
+                    position relative
+                    box-sizing border-box
+                    width 33%
+                    padding 0 5px
+                    .icon
+                        margin-bottom 5px
+                        width 100%
+                        img 
+                            width 100%
+                    .text
+                        text-align left 
+                        font-size $font-size-small
+                        color $color-text
+                        line-height 16px
+                        text-overflow ellipsis
+                        white-space nowrap
+                        overflow hidden
+                    .singer
+                        text-align left 
+                        font-size $font-size-small
+                        text-overflow ellipsis
+                        white-space nowrap
+                        overflow hidden
+                        color $color-text-g
+                        line-height 16px
+                        margin-bottom 8px
+
 </style>

@@ -24,8 +24,9 @@ export default {
     },
     mounted() {
         setTimeout(() => {
+            console.log(2)
             this._initScroll()
-        },50)
+        },20)
     },
     methods: {
         _initScroll() {
@@ -38,13 +39,15 @@ export default {
                 probeType: this.probeType
             })
         },
-        // enable() {
-        //     this.scroll && this.scroll.enable()
-        // },
-        // disable() {
-        //     this.scroll && this.scroll.disable()
-        // },
+        enable() {
+            this.scroll && this.scroll.enable()
+        },
+        disable() {
+            this.scroll && this.scroll.disable()
+        },
         refresh() {
+            console.log(3)
+            this.scroll.refresh()
             this.scroll && this.scroll.refresh()
         }
     },
@@ -52,7 +55,7 @@ export default {
         data() {
             setTimeout(() => {
                 this.refresh()
-            }, 50)
+            }, 20)
         }
     }
 }
