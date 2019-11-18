@@ -44,10 +44,10 @@ export default ({
                 const element = rank_number_api[index];
                 getRank(element).then((res) => {
                     let list = res.data.playlist
-                    list.rank = res.data.playlist.tracks.slice(0,3)
+                    // list.rank = res.data.playlist.tracks.slice(0,3)
                     this.rankList.push(list)
                     console.log(this.rankList)
-                    // list.rank = res.data.playlist.tracks.slice(0,3) push 后面执行也能到对应棠数据中/
+                    list.rank = res.data.playlist.tracks.slice(0,3)  // push 后面执行也能到对应的数据中/
                 })
             }
         }
@@ -58,7 +58,6 @@ export default ({
 <style lang="stylus" scoped>
     @import "~common/stylus/variable"
     .fade-enter-active, .fade-leave-active 
-        transition opacity .5s
         transition all 0.5s
     .fade-enter, .fade-leave-to 
         transform translate3d(50%,0,0)
