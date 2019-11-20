@@ -1,17 +1,22 @@
 <template>
     <div class="singer">
-
+        <singer-list :data="singerList"></singer-list>
     </div>
 </template>
 
 <script>
 import { getSingerList } from "api/singer"
 
+import SingerList from "base/singer-list/singer-list"
+
 const HOT_NAME = "热门"
 const HOT_LENGTH = 10
 
 export default ({
     name: 'singer',
+    components: {
+        SingerList
+    },
     data() {
         return {
             singerList: []
