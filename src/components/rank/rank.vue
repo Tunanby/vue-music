@@ -1,11 +1,11 @@
 <template>
-    <transition name=“fade>
+    <transition>
         <div class="rank">
             <scroll class="list">
                 <ul >
                     <li class="item" v-for="(item,key) in rankList" :key="key">
                         <div class="icon">
-                            <img v-lazy="item.coverImgUrl" alt="" width="100" height="100">
+                            <img :src="item.coverImgUrl" alt="" width="100" height="100">
                         </div>
                         <div class="songList">
                             <ul>
@@ -40,13 +40,14 @@ export default ({
     },
     methods: {
         _getRank() {
+            
             for (let index = 0; index < rank_number_api.length; index++) {
                 const element = rank_number_api[index];
                 getRank(element).then((res) => {
                     let list = res.data.playlist
                     // list.rank = res.data.playlist.tracks.slice(0,3)
                     this.rankList.push(list)
-                    console.log(this.rankList)
+                    // console.log(this.rankList)
                     list.rank = res.data.playlist.tracks.slice(0,3)  // push 后面执行也能到对应的数据中/
                 })
             }
@@ -57,11 +58,16 @@ export default ({
 
 <style lang="stylus" scoped>
     @import "~common/stylus/variable"
-    .fade-enter-active, .fade-leave-active 
-        transition all 0.5s
-    .fade-enter, .fade-leave-to 
+    // .fade-enter-active, .fade-leave-active 
+    //     transition all 0.5s
+    // .fade-enter, .fade-leave-to 
+    //     transform translate3d(50%,0,0)
+    //     opacity 0
+    .v-enter-active,.v-leave-active
+        transition all 0.1s
+    .v-enter,.v-leave-to
         transform translate3d(50%,0,0)
-        opacity 0
+        opacity: 0;
     .rank
         width 100%
         position fixed

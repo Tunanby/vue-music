@@ -10,7 +10,7 @@
                     <ul>
                         <li class="item" v-for="(item,key) in recommendList" :key="key">
                             <div class="icon">
-                                <img v-lazy="item.picUrl" alt="歌曲封面">
+                                <img v-lazy="item.picUrl" alt="">
                             </div>
                             <p class="count">
                                 <i class="iconfont icon-search"></i> 
@@ -27,7 +27,7 @@
                     <ul>
                         <li class="item" v-for="(item,key) in recommendMusic" :key="key">
                             <div class="icon">
-                                <img v-lazy="item.song.album.picUrl" alt="歌曲图片">
+                                <img v-lazy="item.song.album.picUrl" alt="">
                             </div>
                             <p class="text"> {{ item.name }} </p>
                             <p class="singer"> {{ item.song.artists[0].name }} </p>
@@ -177,14 +177,6 @@ export default ({
                         color $color-text-g
                         line-height 16px
                         margin-bottom 8px
-
-
-
-
-
-
-
-
             .loading-content
                 position absolute
                 width 100%
