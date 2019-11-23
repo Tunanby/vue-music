@@ -46,8 +46,13 @@ export default {
             this.scroll && this.scroll.disable()
         },
         refresh() {
-            // console.log(3)
             this.scroll && this.scroll.refresh()
+        },
+        // scrollTo() {
+        //     this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
+        // },
+        scrollToElement(el, time, offsetX, offsetY, easing) {
+            this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)        
         }
     },
     watch:{

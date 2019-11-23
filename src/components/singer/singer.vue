@@ -30,7 +30,7 @@ export default ({
             getSingerList().then((res) => {
                 if (res.code === 0) {
                     this.singerList = this._singListSettings(res.data.list)
-                    console.log(this.singerList,'2212')
+                    // console.log(this.singerList,'2212')
                 }
             })
         },
@@ -82,6 +82,11 @@ export default ({
 })
 </script>
 
-<style scoped>
-
+<style lang="stylus" scoped>
+    @import "~common/stylus/variable"
+        .singer
+            width 100%
+            position fixed
+            top 88px
+            bottom 0px
 </style>
