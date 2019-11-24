@@ -1,7 +1,9 @@
 <template>
-    <div class="singer">
-        <singer-list :data="singerList"></singer-list>
-    </div>
+    <transition>
+        <div class="singer">
+            <singer-list :data="singerList"></singer-list>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -84,6 +86,11 @@ export default ({
 
 <style lang="stylus" scoped>
     @import "~common/stylus/variable"
+        .v-enter-active,.v-leave-active
+            transition all 0.1s
+        .v-enter,.v-leave-to
+            transform translate3d(50%,0,0)
+            opacity: 0;
         .singer
             width 100%
             position fixed

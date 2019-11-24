@@ -20,11 +20,14 @@ export default {
         data: {
             type: Array,
             default: null
+        },
+        listenHeight: {
+            type: Boolean,
+            default: false
         }
     },
     mounted() {
         setTimeout(() => {
-            // console.log(2)
             this._initScroll()
         },20)
     },
@@ -33,11 +36,15 @@ export default {
             if (!this.$refs.wrapper) {
                 return false
             }
-            // console.log(1)
             this.scroll = new BScroll(this.$refs.wrapper, {
                 click: this.click,
                 probeType: this.probeType
             })
+            if (this.listenHeight) {
+                this.scroll.on('scroll',(place) => {
+                    this.$emit('scroll', place)
+                })
+            }
         },
         enable() {
             this.scroll && this.scroll.enable()

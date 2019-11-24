@@ -3,9 +3,11 @@
         class="singer-list"     
         :data="data" 
         ref="singerList"
+        :listenHeight="listenHeight"
+        @scroll="scroll"
+        :probeType="probeType"
     >
         <ul>
-            <!-- <li v-for="(index,key) of 100" :key="key"> {{ index }} </li> -->
             <li 
                 class="list" v-for="(item,key) of data" 
                 :key="key"
@@ -26,12 +28,12 @@
             @touchmove="sceollTouchMove"
         >
             <ul>
-                <!-- <li>sss</li> -->
                 <li 
                     v-for="(item,index) of listScroll"
                     :key="index" 
                     class="item"
                     :data-index="index"
+                    :class="{'currentIndex':currentIndex === index}"
                 >
                     {{ item }}
                 </li>
@@ -47,6 +49,14 @@ export default {
     name: "singer-list",
     components: {
         Scroll
+    },
+    data() {
+        return {
+            listenHeight: true,
+            scrollY: 0,
+            currentIndex: 0,
+            probeType: 3
+        }
     },
     computed: {
         listScroll() {
@@ -64,8 +74,8 @@ export default {
         }
     },
     created() {
-        // 不在data 里面设置this.touch 是因为 在vue 里 data 有 get set 对属性监听（数据绑定）
         this.touch = {}
+        this.countHeigth = []
     },
     methods: {
         scrollTouchStart(e) {
@@ -81,6 +91,44 @@ export default {
             let offset = (this.touch.two - this.touch.one) / 20 | 0
             let targetIndex =  parseInt(this.touch.targetIndex) + offset
             this.$refs.singerList.scrollToElement(this.$refs.list[targetIndex])
+        },
+        scroll(place) {
+            this.scrollY = place.y
+        },
+        _countHeigth() {
+            this.countHeigth = []
+            let height = 0
+            this.countHeigth.push(height)
+            const array = this.$refs.list
+            for (let index = 0; index < array.length; index++) {
+                let element = array[index]
+                height += element.clientHeight
+                this.countHeigth.push(height)
+            }
+            // console.log(this.countHeigth, 'list 长度')
+        }
+    },
+    watch: {
+        data() {
+            setTimeout(() => {
+               this._countHeigth()
+            }, 20)
+        },
+        scrollY(newY) {
+            const listHeight = this.countHeigth
+            if (newY>0) {
+                this.currentIndex = 0
+                return
+            }
+            for (let index = 0; index < listHeight.length; index++) {
+                let heightMax = listHeight[index + 1]
+                let heightMin = listHeight[index]
+                // console.log(newY, '---', heightMax, '---', heightMin, '---', index)
+                if (-newY < heightMax && -newY >= heightMin) {
+                    this.currentIndex = index
+                    return
+                }
+            }  
         }
     }
 }
@@ -103,7 +151,6 @@ export default {
                     color white
                     font-size $font-size-small
                     margin-bottom 5px
-                   
                 .list-item
                     display flex
                     border-bottom  1px solid $color-text-ggg
@@ -132,4 +179,6 @@ export default {
                     line-height 1
                     font-size $font-size-small
                     font-weight bold
+                    &.currentIndex
+                        color $color-theme 
 </style>
