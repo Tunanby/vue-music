@@ -1,6 +1,10 @@
 <template>
     <transition>
-        <div class="singer-detail">singer detil</div>
+        <music-list
+            :songs="songs"
+            :title="title"
+            :bgImg="bgImg"
+        ></music-list>
     </transition>
 </template>
 
@@ -8,8 +12,12 @@
 import { mapGetters } from "vuex"
 import { getSingerDetail } from "api/singer"
 import { songSetting } from "common/js/song"
+import MusicList from "components/music-list/music-list"
 export default {
     name : "singer-detail",
+    components: {
+        MusicList
+    },
     data() {
         return {
             songs: []
@@ -18,7 +26,13 @@ export default {
     computed: {
         ...mapGetters([ // 取数据
             'singer'
-        ])
+        ]),
+        title() {
+           return this.singer.name
+        },
+        bgImg() {
+            return this.singer.img
+        }
     },
     created() {
         this._getSingerDetail()
@@ -34,6 +48,7 @@ export default {
                     this.songs = this._songsDetailSetting(res.data.list)
                 }
                 console.log(this.songs,'111')
+                console.log(this.singer, '11')
             })
         },
         _songsDetailSetting(list) {
@@ -56,12 +71,4 @@ export default {
         transition all 0.3s
     .v-enter,.v-leave-to
         transform translate3d(100%,0,0)
-    .singer-detail
-        position fixed
-        width 100%
-        top 88px
-        left 0
-        bottom 0
-        z-index 100
-        background $color-background
 </style>
