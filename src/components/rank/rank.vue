@@ -64,7 +64,7 @@ export default ({
     //     transform translate3d(50%,0,0)
     //     opacity 0
     .v-enter-active,.v-leave-active
-        transition all 0.1s
+        transition all 0.3s
     .v-enter,.v-leave-to
         transform translate3d(50%,0,0)
         opacity: 0;

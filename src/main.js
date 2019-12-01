@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import 'common/stylus/index.styl'
-
 import VueLazyload from 'vue-lazyload' // 图片懒加载
 // or with options
 Vue.use(VueLazyload, {
@@ -23,6 +23,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

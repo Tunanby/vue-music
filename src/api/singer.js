@@ -1,6 +1,13 @@
+
+import axios from 'axios'
+import { HOST } from "../common/js/config"
+export function getArtist() {
+    const url = HOST + '/top/artists?limit=70'
+    return axios.get(url)
+}
+
 import jsonp from "common/js/jsonp"
 import { params, options } from "src/api/config"
-
 export function getSingerList() {
     const url = "https://c.y.qq.com/v8/fcg-bin/v8.fcg"
     const data = Object.assign({},params,{
@@ -15,4 +22,19 @@ export function getSingerList() {
         platform: 'yqq'
     })
     return jsonp(url,data,options)
+}
+export function getSingerDetail(singerId){
+	const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg'
+	const data = Object.assign({},params,{
+		hostUin: 0,
+		g_tk: 1664029744,
+		needNewCode: 0,
+		platform: 'yqq',
+		order: 'listen',
+		begin: 0,
+		num: 100,
+		songstatus: 1,
+		singermid: singerId
+	})
+	return jsonp(url,data,options)
 }

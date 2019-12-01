@@ -1,16 +1,17 @@
 <template>
     <transition>
         <div class="singer">
-            <singer-list :data="singerList"></singer-list>
+            <singer-list :data="singerList" @singer="goSingerSon"></singer-list>
+             <router-view></router-view>
         </div>
+
     </transition>
 </template>
 
 <script>
-import { getSingerList } from "api/singer"
-
+import { getSingerList, getArtist } from "api/singer"
 import SingerList from "base/singer-list/singer-list"
-
+import { mapMutations } from "vuex"
 const HOT_NAME = "热门"
 const HOT_LENGTH = 10
 
@@ -26,8 +27,23 @@ export default ({
     },
     created() {
         this._getSingerList()
+        this._getArtist()
     },
     methods: {
+        goSingerSon(list){
+            this.$router.push({
+                path: `/singer/${list.mid}`
+            })
+            this.setSinger(list)
+        },
+        ...mapMutations({
+            setSinger: 'SET_SINGER' //  映射成 this.setSingerr 
+        }),
+        _getArtist() {
+            // getArtist().then((res)=>{
+            //     // console.log(res,'111111111111')
+            // })
+        },
         _getSingerList() {
             getSingerList().then((res) => {
                 if (res.code === 0) {
@@ -47,6 +63,7 @@ export default ({
                 if (index < HOT_LENGTH) {
                     page.hot.lists.push({
                         id: item.Fsinger_id,
+                        mid: item.Fsinger_mid,
                         name: item.Fsinger_name,
                         img: `//y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000` 
                     })
@@ -60,6 +77,7 @@ export default ({
                 }
                 page[key].lists.push({
                     id: item.Fsinger_id,
+                    mid: item.Fsinger_mid,
                     name: item.Fsinger_name,
                     img: `//y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000`
                 })
@@ -80,17 +98,17 @@ export default ({
             // 数组合并 concat
             return hot.concat(nohot)
         }
-    }
+    },
+
 })
 </script>
 
 <style lang="stylus" scoped>
     @import "~common/stylus/variable"
         .v-enter-active,.v-leave-active
-            transition all 0.1s
+            transition all 0.3s
         .v-enter,.v-leave-to
             transform translate3d(50%,0,0)
-            opacity: 0;
         .singer
             width 100%
             position fixed

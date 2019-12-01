@@ -15,7 +15,7 @@
             >
                 <h1 class="title-item"> {{ item.title }} </h1>
                 <ul>
-                    <li class="list-item" v-for="(list,index) of item.lists" :key="index">
+                    <li class="list-item" v-for="(list,index) of item.lists" :key="index" @click="selectIist(list)">
                         <img :src="list.img" alt="" width="50" height="50">
                         <span class="name"> {{ list.name  }} </span>
                     </li>
@@ -78,13 +78,16 @@ export default {
         this.countHeigth = []
     },
     methods: {
-        scrollTouchStart(e) {
-            let targetIndex =  getIndex(e.target , 'index')
+        selectIist(list) {
+            this.$emit('singer', list)
+        },
+        scrollTouchStart(e) { // 点击 A-Z 跳转位置
+            let targetIndex =  getIndex(e.target , 'index') 
             this.$refs.singerList.scrollToElement(this.$refs.list[targetIndex])
             this.touch.one = e.touches[0].pageY
             this.touch.targetIndex = targetIndex 
         },
-        sceollTouchMove(e) {
+        sceollTouchMove(e) { // 移动跳转位置
             // 1. 获取 初始位置 与 滑动位置 的偏移 2. 获取初始位置的锚点 3 更新最新的锚点改变位置
             this.touch.two = e.touches[0].pageY 
             // let offset = Math.floor((this.touch.two - this.touch.one) / 20)
@@ -95,7 +98,7 @@ export default {
         scroll(place) {
             this.scrollY = place.y
         },
-        _countHeigth() {
+        _countHeigth() { // 歌手数据列表的长度
             this.countHeigth = []
             let height = 0
             this.countHeigth.push(height)
@@ -114,7 +117,7 @@ export default {
                this._countHeigth()
             }, 20)
         },
-        scrollY(newY) {
+        scrollY(newY) {  // 监听 scrollY  当前 在 A-Z 的 位置
             const listHeight = this.countHeigth
             if (newY>0) {
                 this.currentIndex = 0
