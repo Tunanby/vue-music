@@ -7,6 +7,9 @@ const mutations = {
     },
     [types.SET_RECOMMEND](state, recommend) {
         state.recommend = recommend
+    },
+    [types.SET_RANK](state, rank) {
+        state.rank = rank
     }
 }
 // console.log(mutations,'22')

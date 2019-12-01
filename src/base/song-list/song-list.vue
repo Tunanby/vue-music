@@ -54,4 +54,7 @@ export default {
                         text-overflow ellipsis
                         overflow hidden
                         white-space nowrap
+                &:last-child
+                    border none 
+                    margin-bottom 10px
 </style>

@@ -9,6 +9,9 @@
         <router-link tag="div" class="item" to="/singer">
             <span>歌手</span>
         </router-link>
+        <router-link tag="div" class="item" to="/singer">
+            <span>我的</span>
+        </router-link>
     </div>
 </template>
 

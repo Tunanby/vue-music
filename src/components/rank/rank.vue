@@ -3,7 +3,7 @@
         <div class="rank">
             <scroll class="list">
                 <ul >
-                    <li class="item" v-for="(item,key) in rankList" :key="key">
+                    <li class="item" v-for="(item,key) in rankList" :key="key" @click="selectRank(item)">
                         <div class="icon">
                             <img :src="item.coverImgUrl" alt="" width="100" height="100">
                         </div>
@@ -16,6 +16,7 @@
                         </div>
                     </li>
                 </ul>
+                <router-view></router-view>
             </scroll>
         </div>
     </transition>
@@ -24,6 +25,7 @@
 <script>
 import { getRank } from "api/rank.js"
 import Scroll from "base/scroll/scroll"
+import { mapMutations } from "vuex"
 const rank_number_api = [0, 1, 2, 3, 4, 22, 23]
 export default ({
     name: 'rank',
@@ -39,8 +41,16 @@ export default ({
         this._getRank()
     },
     methods: {
+        selectRank(item) {
+            this.$router.push({
+                path: `/rank/${item.id}`
+            })
+            this.setRank(item)
+        },
+        ...mapMutations({
+            setRank: 'SET_RANK'
+        }),
         _getRank() {
-            
             for (let index = 0; index < rank_number_api.length; index++) {
                 const element = rank_number_api[index];
                 getRank(element).then((res) => {

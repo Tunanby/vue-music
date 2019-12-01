@@ -8,6 +8,7 @@ const Rank = () => import('components/rank/rank')
 const Singer = () => import('components/singer/singer')
 const SingerDetail = () => import('components/singer-detail/singer-detail')
 const RecommendDetail = () => import('components/recommend-detail/recommend-detail')
+const RankDetail = () => import('components/rank-detail/rank-detail')
 
 Vue.use(Router)
 
@@ -38,7 +39,13 @@ export default new Router({
     {
       path: '/rank',
       name: 'Rank',
-      component: Rank
+      component: Rank,
+      children: [
+        {
+          path: ':id',
+          component: RankDetail
+        }
+      ]
     },
     { path: '/*', redirect: '/recommend' }
   ]
