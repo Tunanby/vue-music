@@ -8,7 +8,7 @@
                 <div class="recommend-list">
                     <h4 class="list-title">推荐歌单</h4>
                     <ul>
-                        <li class="item" v-for="(item,key) in recommendList" :key="key">
+                        <li class="item" v-for="(item,key) in recommendList" :key="key" @click="selectItem(item)">
                             <div class="icon">
                                 <img v-lazy="item.picUrl" alt="">
                             </div>
@@ -38,6 +38,7 @@
             <div class="loading-content" v-if="!recommendList.length">
                 <loading></loading>
             </div>
+            <router-view></router-view>
         </scroll>
     </div>
 </template>
@@ -48,6 +49,7 @@ import { getRecommendList, getRecommendMusic } from "api/recommend"
 import { ERR_OK } from "common/js/config"
 import Scroll from "base/scroll/scroll"
 import Loading from "base/loading/loading"
+import { mapMutations } from "vuex"
 export default ({ 
     name: 'recommend',
     components:{
@@ -64,6 +66,15 @@ export default ({
         this._getRecommendMusic()
     },
     methods: {
+        selectItem(item) {
+            this.$router.push({
+                path: `/recommend/${item.id}`
+            })
+            this.recommend(item)
+        },
+        ...mapMutations({
+            recommend: "SET_RECOMMEND"
+        }),
         _getRecommendList() {
             getRecommendList().then((res) => {
                 if (res.status === ERR_OK) {
